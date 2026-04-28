@@ -260,11 +260,13 @@ export async function POST(req: NextRequest) {
 
   const RESEND_API_KEY = process.env.RESEND_API_KEY
   const CONTACT_EMAIL  = process.env.CONTACT_EMAIL ?? 'hola@nomadas.tech'
-  const FROM_EMAIL     = 'Nómadas Tech <onboarding@resend.dev>'
+  const FROM_EMAIL     = 'Nómadas Tech <hola@nomadastech.com>'
 
-  // Dev mode: log and return success without sending
+  console.log('[Cotización] RESEND_API_KEY presente:', !!RESEND_API_KEY, '| primeros 6 chars:', RESEND_API_KEY?.slice(0, 6) ?? 'undefined')
+
+  // Si no hay API key, loguear y salir
   if (!RESEND_API_KEY) {
-    console.log('[Cotización — modo dev]', JSON.stringify(data, null, 2))
+    console.log('[Cotización — sin API key] datos recibidos:', JSON.stringify(data, null, 2))
     return NextResponse.json({ success: true, dev: true })
   }
 
