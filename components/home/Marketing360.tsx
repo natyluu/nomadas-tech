@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import type { ReactElement } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Layout, Search, BarChart2, Box, Users, Target, Check, type LucideIcon } from 'lucide-react'
@@ -747,13 +747,9 @@ function PanelContent({ active }: { active: typeof SERVICES[number] }) {
 export function Marketing360() {
   const [activeIdx, setActiveIdx] = useState(0)
   const active   = SERVICES[activeIdx]
-  const panelRef = useRef<HTMLDivElement>(null)
 
   function handleSelect(i: number) {
     setActiveIdx(i)
-    if (window.innerWidth < 768 && panelRef.current) {
-      panelRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
   }
 
   return (
@@ -809,7 +805,6 @@ export function Marketing360() {
 
           {/* Panel */}
           <div
-            ref={panelRef}
             className="rounded-2xl overflow-hidden flex flex-col"
             style={{
               background: C.bg2,
