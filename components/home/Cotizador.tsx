@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, ArrowRight, ArrowLeft, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
@@ -237,6 +237,13 @@ export function Cotizador() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const cotizadorRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (submitted) {
+      cotizadorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [submitted])
 
   const set: SetFn = (key, value) =>
     setFormData((prev) => ({ ...prev, [key]: value }))
@@ -288,7 +295,7 @@ export function Cotizador() {
   /* ── Success ── */
   if (submitted) {
     return (
-      <section id="cotizador" className="section-dark py-20 px-4" aria-label="Cotizador enviado">
+      <section ref={cotizadorRef} id="cotizador" className="section-dark py-20 px-4" aria-label="Cotizador enviado">
         <div className="max-w-xl mx-auto text-center flex flex-col items-center gap-6">
           <div className="flex items-center justify-center w-20 h-20 rounded-full bg-purple/10">
             <CheckCircle size={40} strokeWidth={1.8} className="text-purple" aria-hidden="true" />
@@ -318,7 +325,7 @@ export function Cotizador() {
   const stepLabels = [STEPS[0], step2Label, ...STEPS.slice(2)]
 
   return (
-    <section id="cotizador" className="section-dark py-20 px-4" aria-label="Cotizador de proyectos">
+    <section ref={cotizadorRef} id="cotizador" className="section-dark py-20 px-4" aria-label="Cotizador de proyectos">
       <div className="max-w-2xl mx-auto">
         <SectionHeader
           badge="Cotizador"
