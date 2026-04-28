@@ -86,45 +86,41 @@ function OptionCard({
     <button
       type="button"
       onClick={onClick}
-      className={cn(
-        'flex flex-col gap-0.5 text-left px-5 py-4 rounded-xl border font-body transition-all duration-200 cursor-pointer w-full',
-        selected
-          ? 'border-purple bg-purple-dim text-content'
-          : 'border-slate-200 bg-white text-dark/70 hover:border-purple/40 hover:bg-slate-50',
-      )}
+      className="flex flex-col gap-0.5 text-left px-5 py-4 rounded-xl border font-body transition-all duration-200 cursor-pointer w-full"
+      style={{
+        background: selected ? 'rgba(91,63,232,0.3)' : 'rgba(255,255,255,0.05)',
+        borderColor: selected ? '#5B3FE8' : 'rgba(255,255,255,0.15)',
+        color: '#FFFFFF',
+      }}
     >
-      <span className={cn('font-medium text-sm', selected ? 'text-content' : 'text-dark')}>
-        {label}
-      </span>
-      {sub && (
-        <span className={cn('text-xs', selected ? 'text-muted' : 'text-dark/40')}>{sub}</span>
-      )}
+      <span className="font-medium text-sm text-white">{label}</span>
+      {sub && <span className="text-xs" style={{ color: 'rgba(255,255,255,0.55)' }}>{sub}</span>}
     </button>
   )
 }
 
 function FieldLabel({ htmlFor, children, optional }: { htmlFor: string; children: React.ReactNode; optional?: boolean }) {
   return (
-    <label htmlFor={htmlFor} className="font-body text-sm font-medium text-dark">
+    <label htmlFor={htmlFor} className="font-body text-sm font-medium text-white">
       {children}
-      {optional && <span className="font-normal text-dark/40 ml-1">(opcional)</span>}
+      {optional && <span className="font-normal ml-1" style={{ color: '#8A88A8' }}>(opcional)</span>}
     </label>
   )
 }
 
 function QuestionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <legend className="font-display font-bold text-lg text-dark mb-4">
+    <legend className="font-display font-bold text-lg text-white mb-4">
       {children}
     </legend>
   )
 }
 
 const inputClass =
-  'h-11 px-4 rounded-xl border border-slate-200 bg-white font-body text-sm text-dark placeholder-dark/30 focus:outline-none focus:border-purple focus:ring-2 focus:ring-purple/20 transition-all duration-200'
+  'h-11 px-4 rounded-xl border font-body text-sm focus:outline-none focus:border-purple focus:ring-2 focus:ring-purple/20 transition-all duration-200 text-white placeholder-[#8A88A8] [background:rgba(255,255,255,0.08)] [border-color:rgba(255,255,255,0.15)]'
 
 const textareaClass =
-  'px-4 py-3 rounded-xl border border-slate-200 bg-white font-body text-sm text-dark placeholder-dark/30 focus:outline-none focus:border-purple focus:ring-2 focus:ring-purple/20 transition-all duration-200 resize-none'
+  'px-4 py-3 rounded-xl border font-body text-sm focus:outline-none focus:border-purple focus:ring-2 focus:ring-purple/20 transition-all duration-200 resize-none text-white placeholder-[#8A88A8] [background:rgba(255,255,255,0.08)] [border-color:rgba(255,255,255,0.15)]'
 
 /* ─── Step 2 variants ────────────────────────────────────────────── */
 function Step2A({ data, set }: { data: FormData; set: SetFn }) {
@@ -292,13 +288,13 @@ export function Cotizador() {
   /* ── Success ── */
   if (submitted) {
     return (
-      <section id="cotizador" className="section-light py-20 px-4" aria-label="Cotizador enviado">
+      <section id="cotizador" className="section-dark py-20 px-4" aria-label="Cotizador enviado">
         <div className="max-w-xl mx-auto text-center flex flex-col items-center gap-6">
           <div className="flex items-center justify-center w-20 h-20 rounded-full bg-purple/10">
             <CheckCircle size={40} strokeWidth={1.8} className="text-purple" aria-hidden="true" />
           </div>
-          <h2 className="font-display font-bold text-3xl text-dark">¡Recibido!</h2>
-          <p className="font-body text-dark/60 text-lg leading-relaxed">
+          <h2 className="font-display font-bold text-3xl text-white">¡Recibido!</h2>
+          <p className="font-body text-lg leading-relaxed" style={{ color: 'rgba(240,238,255,0.6)' }}>
             Te contactamos en menos de 24 horas. Mientras tanto, revisa tu WhatsApp y correo.
           </p>
           <Button
@@ -322,7 +318,7 @@ export function Cotizador() {
   const stepLabels = [STEPS[0], step2Label, ...STEPS.slice(2)]
 
   return (
-    <section id="cotizador" className="section-light py-20 px-4" aria-label="Cotizador de proyectos">
+    <section id="cotizador" className="section-dark py-20 px-4" aria-label="Cotizador de proyectos">
       <div className="max-w-2xl mx-auto">
         <SectionHeader
           badge="Cotizador"
@@ -340,18 +336,19 @@ export function Cotizador() {
                 key={label + i}
                 className={cn(
                   'flex items-center gap-1.5 font-body text-xs font-medium transition-colors duration-300',
-                  i + 1 < step  && 'text-purple',
-                  i + 1 === step && 'text-dark',
-                  i + 1 > step  && 'text-dark/30',
+                  i + 1 < step  && 'text-purple-light',
+                  i + 1 === step && 'text-white',
+                  i + 1 > step  && 'text-white/30',
                 )}
               >
                 <span
                   className={cn(
                     'flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold transition-all duration-300 shrink-0',
                     i + 1 < step  && 'bg-purple text-white',
-                    i + 1 === step && 'bg-dark text-white',
-                    i + 1 > step  && 'bg-dark/10 text-dark/30',
+                    i + 1 === step && 'bg-white text-dark',
+                    i + 1 > step  && 'text-white/30',
                   )}
+                  style={i + 1 > step ? { background: 'rgba(255,255,255,0.1)' } : undefined}
                   aria-hidden="true"
                 >
                   {i + 1 < step ? '✓' : i + 1}
@@ -360,7 +357,7 @@ export function Cotizador() {
               </div>
             ))}
           </div>
-          <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.1)' }}>
             <div
               className="h-full bg-purple rounded-full transition-all duration-500 ease-out"
               style={{ width: `${((step - 1) / (STEPS.length - 1)) * 100}%` }}
@@ -460,7 +457,7 @@ export function Cotizador() {
               {/* ── Step 5: Contacto ── */}
               {step === 5 && (
                 <div className="flex flex-col gap-5">
-                  <h3 className="font-display font-bold text-xl text-dark">Datos de contacto</h3>
+                  <h3 className="font-display font-bold text-xl text-white">Datos de contacto</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
                       <FieldLabel htmlFor="name">
@@ -534,12 +531,12 @@ export function Cotizador() {
         )}
 
         {/* Navigation */}
-        <div className="flex items-center justify-between mt-8 pt-6 border-t border-slate-100">
+        <div className="flex items-center justify-between mt-8 pt-6 border-t" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
           <Button
             variant="ghost"
             onClick={() => goTo(step - 1)}
             disabled={step === 1}
-            className="text-dark/60 hover:text-dark"
+            className="text-white/50 hover:text-white"
           >
             <ArrowLeft size={16} strokeWidth={1.8} aria-hidden="true" />
             Anterior

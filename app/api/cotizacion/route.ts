@@ -276,7 +276,7 @@ export async function POST(req: NextRequest) {
     const [teamResult, clientResult] = await Promise.all([
       resend.emails.send({
         from:    FROM_EMAIL,
-        to:      [CONTACT_EMAIL],
+        to:      ['natalia.turizo04@gmail.com'],
         subject: `Nueva cotización: ${data.name} — ${projectTypeLabel(data.projectType)}`,
         html:    buildTeamEmail(data),
       }),
@@ -297,7 +297,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true })
   } catch (err) {
-    console.error('[Cotización] Error inesperado:', JSON.stringify(err, null, 2))
+    console.error('[Cotización] Error inesperado:', JSON.stringify(err, Object.getOwnPropertyNames(err instanceof Error ? err : {}), 2))
     console.error('[Cotización] Error raw:', err)
     return NextResponse.json({ error: 'Error al enviar emails' }, { status: 500 })
   }
