@@ -1,0 +1,250 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#08080E;font-family:'DM Sans',sans-serif;overflow:hidden}
+
+.hero{
+  min-height:520px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  position:relative;overflow:hidden;padding:3rem 1rem 2rem;
+}
+
+.bg-grid{
+  position:absolute;inset:0;opacity:.03;
+  background-image:linear-gradient(rgba(91,63,232,1) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(91,63,232,1) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;
+}
+.bg-glow{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:600px;height:400px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(91,63,232,.14) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+/* BADGE */
+.badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(91,63,232,.15);border:1px solid rgba(91,63,232,.4);
+  padding:.3rem .9rem;border-radius:100px;margin-bottom:1.4rem;
+  font-size:.7rem;font-weight:600;color:#7B5FFF;letter-spacing:.08em;text-transform:uppercase;
+  position:relative;z-index:2;
+}
+.bdot{width:6px;height:6px;border-radius:50%;background:#7B5FFF;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* TITLE */
+.title{
+  font-family:'Syne',sans-serif;font-weight:900;
+  font-size:clamp(2rem,5vw,3.4rem);line-height:1.05;
+  color:#fff;text-align:center;margin-bottom:.8rem;
+  position:relative;z-index:2;letter-spacing:-.02em;
+}
+.title .hl{color:#7B5FFF}
+.sub{
+  font-size:.95rem;color:#6A6890;text-align:center;
+  max-width:480px;line-height:1.7;margin-bottom:2rem;
+  position:relative;z-index:2;
+}
+.sub strong{color:#B0AECE}
+
+/* MARQUEE WRAPPER */
+.marquee-section{
+  width:100%;position:relative;z-index:2;
+  display:flex;flex-direction:column;gap:10px;
+  margin-bottom:2rem;
+  mask-image:linear-gradient(90deg,transparent 0%,black 12%,black 88%,transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,black 12%,black 88%,transparent 100%);
+}
+
+.marquee-track{
+  display:flex;gap:10px;width:max-content;
+  animation:scroll 28s linear infinite;
+}
+.marquee-track.rev{
+  animation:scrollRev 32s linear infinite;
+}
+.marquee-track.slow{
+  animation:scroll 38s linear infinite;
+}
+
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes scrollRev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+.word-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:100px;
+  border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.03);
+  font-size:.78rem;font-weight:600;color:#5A5878;
+  white-space:nowrap;transition:all .4s;cursor:default;
+  user-select:none;
+}
+.word-pill svg{width:13px;height:13px;stroke:#5A5878;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;transition:stroke .4s}
+
+.word-pill.lit{
+  background:rgba(91,63,232,.18);
+  border-color:rgba(91,63,232,.5);
+  color:#B8B0FF;
+}
+.word-pill.lit svg{stroke:#7B5FFF}
+
+.word-pill.super-lit{
+  background:rgba(91,63,232,.3);
+  border-color:#7B5FFF;
+  color:#fff;
+  box-shadow:0 0 16px rgba(91,63,232,.35);
+}
+.word-pill.super-lit svg{stroke:#B8B0FF}
+
+/* BTNS */
+.btns{display:flex;gap:10px;justify-content:center;position:relative;z-index:2}
+.btn-p{
+  background:#5B3FE8;color:#fff;border:none;cursor:pointer;
+  padding:.75rem 1.8rem;border-radius:9px;
+  font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;
+  transition:background .2s;
+}
+.btn-p:hover{background:#7B5FFF}
+.btn-o{
+  background:transparent;color:#8A88A8;
+  border:1px solid rgba(255,255,255,.1);cursor:pointer;
+  padding:.75rem 1.8rem;border-radius:9px;
+  font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;
+  transition:all .2s;
+}
+.btn-o:hover{color:#fff;border-color:rgba(255,255,255,.25)}
+</style>
+
+<div class="hero">
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <div class="badge"><span class="bdot"></span>Marketing Digital 360° · Colombia</div>
+
+  <h1 class="title">
+    Todo lo que tu negocio<br>necesita para <span class="hl">vender online</span>
+  </h1>
+  <p class="sub">
+    No solo una web bonita. El <strong>ecosistema completo</strong>: cada herramienta configurada, conectada y lista para generar clientes desde el día 1.
+  </p>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section" id="marqueeSection">
+
+    <!-- ROW 1 -->
+    <div style="display:flex;overflow:hidden">
+      <div class="marquee-track" id="row1"></div>
+    </div>
+
+    <!-- ROW 2 -->
+    <div style="display:flex;overflow:hidden">
+      <div class="marquee-track rev" id="row2"></div>
+    </div>
+
+    <!-- ROW 3 -->
+    <div style="display:flex;overflow:hidden">
+      <div class="marquee-track slow" id="row3"></div>
+    </div>
+
+  </div>
+
+  <div class="btns">
+    <button class="btn-p">Quiero mi cotización →</button>
+    <button class="btn-o">Ver cómo trabajamos</button>
+  </div>
+</div>
+
+<script>
+const words = [
+  { label: 'SEO', icon: '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>' },
+  { label: 'E-commerce', icon: '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>' },
+  { label: 'Google Analytics', icon: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/>' },
+  { label: 'Meta Pixel', icon: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>' },
+  { label: 'UX / UI', icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>' },
+  { label: 'Search Console', icon: '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>' },
+  { label: 'CRM', icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
+  { label: 'Google Ads', icon: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>' },
+  { label: 'Web App', icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>' },
+  { label: 'Automatizaciones', icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>' },
+  { label: 'WhatsApp API', icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
+  { label: 'Diseño Web', icon: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>' },
+  { label: 'Conversiones', icon: '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>' },
+  { label: 'Tienda Online', icon: '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>' },
+  { label: 'Pauta Digital', icon: '<circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>' },
+  { label: 'ROAS', icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>' },
+  { label: 'Email Marketing', icon: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>' },
+  { label: 'Calendly', icon: '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>' },
+  { label: 'Landing Page', icon: '<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/>' },
+  { label: 'Core Web Vitals', icon: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>' },
+  { label: 'Remarketing', icon: '<path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/>' },
+];
+
+function makePill(w) {
+  return `<div class="word-pill">
+    <svg viewBox="0 0 24 24">${w.icon}</svg>
+    ${w.label}
+  </div>`;
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildRow(id, wordList) {
+  const el = document.getElementById(id);
+  const doubled = [...wordList, ...wordList];
+  el.innerHTML = doubled.map(makePill).join('');
+}
+
+const r1 = shuffle(words).slice(0, 11);
+const r2 = shuffle(words).slice(0, 11);
+const r3 = shuffle(words).slice(0, 11);
+
+buildRow('row1', r1);
+buildRow('row2', r2);
+buildRow('row3', r3);
+
+// HIGHLIGHT ANIMATION
+let highlightedPills = [];
+
+function clearHighlights() {
+  highlightedPills.forEach(p => {
+    p.classList.remove('super-lit', 'lit');
+  });
+  highlightedPills = [];
+}
+
+function randomHighlight() {
+  clearHighlights();
+  const allPills = document.querySelectorAll('.word-pill');
+  const total = allPills.length;
+
+  // pick 1 super-lit
+  const superIdx = Math.floor(Math.random() * total);
+  allPills[superIdx].classList.add('super-lit');
+  highlightedPills.push(allPills[superIdx]);
+
+  // pick 3-5 lit
+  const litCount = 3 + Math.floor(Math.random() * 3);
+  const used = new Set([superIdx]);
+  for (let i = 0; i < litCount; i++) {
+    let idx;
+    let tries = 0;
+    do { idx = Math.floor(Math.random() * total); tries++; } while (used.has(idx) && tries < 20);
+    used.add(idx);
+    allPills[idx].classList.add('lit');
+    highlightedPills.push(allPills[idx]);
+  }
+}
+
+randomHighlight();
+setInterval(randomHighlight, 1600);
+</script>
