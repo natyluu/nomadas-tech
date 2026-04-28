@@ -20,24 +20,24 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Nómadas Tech | Marketing Digital 360° Colombia',
+  title: 'Nómadas Tech | Marketing Digital 360°',
   description:
-    'Agencia de marketing digital en Colombia. Diseño web, SEO, Google Analytics, Meta Pixel, CRM y automatizaciones — todo incluido, listo para vender desde el día 1.',
+    'Agencia de marketing digital 360°. Diseño web, SEO, Google Analytics, Meta Pixel, CRM y automatizaciones — todo incluido, listo para vender desde el día 1.',
   keywords:
-    'agencia marketing digital colombia, diseño web colombia, seo colombia, meta pixel, google analytics, crm colombia, e-commerce colombia',
+    'agencia marketing digital, diseño web, seo, meta pixel, google analytics, crm, e-commerce, automatizaciones',
   authors: [{ name: 'Nómadas Tech' }],
   openGraph: {
-    title: 'Nómadas Tech | Marketing Digital 360° Colombia',
+    title: 'Nómadas Tech | Marketing Digital 360°',
     description:
-      'Agencia de marketing digital en Colombia. Ecosistema completo para vender online desde el día 1.',
+      'Ecosistema completo de marketing digital para vender online desde el día 1.',
     url: 'https://nomadas.tech',
     siteName: 'Nómadas Tech',
-    locale: 'es_CO',
+    locale: 'es_ES',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nómadas Tech | Marketing Digital 360° Colombia',
+    title: 'Nómadas Tech | Marketing Digital 360°',
     description:
       'Ecosistema completo de marketing digital para vender online desde el día 1.',
   },

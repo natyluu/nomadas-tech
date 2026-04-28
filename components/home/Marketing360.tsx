@@ -32,7 +32,7 @@ const SERVICES = [
     bullets: [
       'Investigación de palabras clave con intención de compra',
       'SEO técnico, on-page y de contenido integrado',
-      'Posicionamiento local para el mercado colombiano',
+      'Posicionamiento local y regional para tu mercado objetivo',
     ],
   },
   {

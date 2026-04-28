@@ -6,7 +6,7 @@ import { Contacto }      from '@/components/home/Contacto'
 export const metadata: Metadata = {
   title: 'Nosotros | Nómadas Tech',
   description:
-    'Somos una agencia de marketing digital 360° en Colombia. Construimos ecosistemas digitales, no solo webs.',
+    'Somos una agencia de marketing digital 360°. Construimos ecosistemas digitales, no solo webs.',
 }
 
 export default function NosotrosPage() {
@@ -17,7 +17,7 @@ export default function NosotrosPage() {
           <SectionHeader
             badge="Nosotros"
             title="La IA hace webs. Nosotros hacemos negocios."
-            subtitle="Somos una agencia de marketing digital en Colombia especializada en construir ecosistemas digitales completos — cada herramienta configurada, conectada y lista para generar clientes desde el día 1."
+            subtitle="Especializados en construir ecosistemas digitales completos — cada herramienta configurada, conectada y lista para generar clientes desde el día 1."
           />
         </div>
       </section>

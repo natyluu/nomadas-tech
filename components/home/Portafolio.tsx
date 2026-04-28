@@ -199,7 +199,7 @@ export function Portafolio() {
         <SectionHeader
           badge="Portafolio"
           title="Proyectos que generan resultados"
-          subtitle="Ecosistemas digitales construidos para negocios reales en Colombia — desde restaurantes hasta academias online."
+          subtitle="Ecosistemas digitales construidos para negocios reales — desde restaurantes hasta academias online."
           className="mb-14"
         />
 

@@ -32,6 +32,7 @@ type FormData = {
   name: string
   whatsapp: string
   email: string
+  company: string
   note: string
 }
 
@@ -42,7 +43,7 @@ const INITIAL: FormData = {
   appDesc: '', appPrototype: '',
   metaBusiness: '', googleBusiness: '',
   pauta: '',
-  name: '', whatsapp: '', email: '', note: '',
+  name: '', whatsapp: '', email: '', company: '', note: '',
 }
 
 /* ─── Options ────────────────────────────────────────────────────── */
@@ -503,11 +504,11 @@ export function Cotizador() {
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <FieldLabel htmlFor="empresa" optional>Empresa</FieldLabel>
+                      <FieldLabel htmlFor="company" optional>Empresa</FieldLabel>
                       <input
-                        id="empresa" type="text"
-                        value={formData.note}
-                        onChange={(e) => set('note', e.target.value)}
+                        id="company" type="text"
+                        value={formData.company}
+                        onChange={(e) => set('company', e.target.value)}
                         placeholder="Nombre de tu empresa"
                         className={inputClass}
                       />

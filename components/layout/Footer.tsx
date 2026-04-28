@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Compass } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
 
 const FOOTER_SERVICES = [
@@ -24,16 +23,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2 group mb-4" aria-label="Nómadas Tech">
-              <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-purple group-hover:bg-purple-light transition-colors duration-200">
-                <Compass size={18} color="white" strokeWidth={1.8} aria-hidden="true" />
-              </span>
-              <span className="font-display font-bold text-content text-lg">
-                nómadas<span className="text-purple-light">.tech</span>
-              </span>
+            <Link href="/" className="inline-flex mb-4" aria-label="Nómadas Tech">
+              <img src="/logo.png" height="40" width="auto" alt="Nómadas Tech" style={{ height: 40, width: 'auto' }} />
             </Link>
             <p className="font-body text-sm text-muted leading-relaxed mb-6">
-              Agencia de Marketing Digital 360° en Colombia. Diseño web, SEO y ecosistema completo para vender online desde el día 1.
+              Diseño web, SEO y ecosistema completo para vender online desde el día 1.
             </p>
             <div className="flex items-center gap-3">
               {SOCIAL_LINKS.map(({ label, abbr, href }) => (
@@ -141,7 +135,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Nómadas Tech. Todos los derechos reservados.
           </p>
           <p className="font-body text-xs text-muted">
-            Colombia &mdash; Marketing Digital 360°
+            Hecho con ♥ para negocios que quieren crecer
           </p>
         </div>
       </div>

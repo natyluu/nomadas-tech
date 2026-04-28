@@ -7,7 +7,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 export const metadata: Metadata = {
   title: 'Servicios | Nómadas Tech — Marketing Digital 360°',
   description:
-    'Diseño web, SEO, Google Analytics, Meta Pixel, CRM y automatizaciones. El ecosistema completo para vender online en Colombia.',
+    'Diseño web, SEO, Google Analytics, Meta Pixel, CRM y automatizaciones. El ecosistema completo para vender online desde el día 1.',
 }
 
 export default function ServiciosPage() {

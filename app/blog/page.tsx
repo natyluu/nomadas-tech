@@ -3,9 +3,9 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { FileText } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Blog | Nómadas Tech — Marketing Digital Colombia',
+  title: 'Blog | Nómadas Tech — Marketing Digital 360°',
   description:
-    'Artículos sobre SEO, marketing digital, e-commerce y automatizaciones para negocios en Colombia.',
+    'Artículos sobre SEO, marketing digital, e-commerce y automatizaciones para hacer crecer tu negocio online.',
 }
 
 export default function BlogPage() {
@@ -16,7 +16,7 @@ export default function BlogPage() {
           <SectionHeader
             badge="Blog"
             title="Marketing digital sin tecnicismos"
-            subtitle="Guías, casos de estudio y estrategias para hacer crecer tu negocio online en Colombia."
+            subtitle="Guías, casos de estudio y estrategias para hacer crecer tu negocio online."
           />
         </div>
       </section>
@@ -33,7 +33,7 @@ export default function BlogPage() {
             Próximamente
           </h2>
           <p className="font-body text-muted max-w-md leading-relaxed">
-            Estamos preparando contenido de valor sobre SEO, pauta digital y ecosistemas de marketing para negocios en Colombia.
+            Estamos preparando contenido de valor sobre SEO, pauta digital y ecosistemas de marketing para negocios que quieren crecer online.
           </p>
         </div>
       </section>

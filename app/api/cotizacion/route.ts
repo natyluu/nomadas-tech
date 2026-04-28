@@ -135,7 +135,7 @@ function buildTeamEmail(d: CotizacionPayload): string {
   <!-- Footer -->
   <tr>
     <td style="padding:20px 36px;border-top:1px solid #EDE9FF;text-align:center;font-size:12px;color:#B0AECE;">
-      Nómadas Tech &bull; Marketing Digital 360° &bull; Colombia
+      Nómadas Tech &bull; Marketing Digital 360°
     </td>
   </tr>
 
@@ -232,7 +232,7 @@ function buildClientEmail(d: CotizacionPayload): string {
   <!-- Footer -->
   <tr>
     <td style="padding:20px 36px;border-top:1px solid #EDE9FF;text-align:center;font-size:12px;color:#B0AECE;line-height:1.6;">
-      Nómadas Tech &bull; Marketing Digital 360° &bull; Colombia<br>
+      Nómadas Tech &bull; Marketing Digital 360°<br>
       <a href="${siteUrl}" style="color:#7B5FFF;text-decoration:none;">${siteUrl.replace('https://', '')}</a>
     </td>
   </tr>

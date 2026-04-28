@@ -6,7 +6,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 export const metadata: Metadata = {
   title: 'Portafolio | Nómadas Tech',
   description:
-    'Proyectos de marketing digital en retail, servicios profesionales y educación en Colombia.',
+    'Proyectos de marketing digital en retail, servicios profesionales y educación.',
 }
 
 export default function PortafolioPage() {
@@ -17,7 +17,7 @@ export default function PortafolioPage() {
           <SectionHeader
             badge="Portafolio"
             title="Resultados en tu industria"
-            subtitle="Ecosistemas digitales construidos para negocios reales en Colombia."
+            subtitle="Ecosistemas digitales construidos para negocios reales."
           />
         </div>
       </section>

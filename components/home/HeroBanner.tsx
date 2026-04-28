@@ -251,7 +251,7 @@ export function HeroBanner() {
             animate={{ opacity: [1, 0.2, 1] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
           />
-          Marketing Digital 360° · Colombia
+          Marketing Digital 360°
         </motion.div>
 
         {/* H1 */}
