@@ -14,12 +14,36 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
   │ 1c×2r   │  [3]    wide      │  row 2
   └─────────┴───────────────────┘
 
-  Mobile: single column, stacked:
-  [1] tall   → 400px
-  [2] square → 280px
-  [4] square → 280px
-  [3] wide   → 300px
+  Mobile: horizontal carousel, 75vw × 420px per card, snap-start, px-5 peek
 */
+
+/* ─── Carousel card data ─────────────────────────────────────────── */
+const CAROUSEL_CARDS = [
+  {
+    image:    '/portafolios/cliente4.jpg',
+    client:   'App de Domicilios',
+    industry: 'App & Tecnología',
+    bgPos:    'top center',
+  },
+  {
+    image:    '/portafolios/cliente2.jpg',
+    client:   'Pastelería',
+    industry: 'Gastronomía',
+    bgPos:    'top center',
+  },
+  {
+    image:    '/portafolios/cliente1.jpg',
+    client:   'Keydi de la Rosa',
+    industry: 'E-commerce',
+    bgPos:    'top center',
+  },
+  {
+    image:    '/portafolios/cliente3.jpg',
+    client:   'Academia',
+    industry: 'Educación',
+    bgPos:    'center',
+  },
+]
 
 /* ─── Shared badge ───────────────────────────────────────────────── */
 function IndustryBadge({ label }: { label: string }) {
@@ -73,8 +97,8 @@ function TallCard({ index }: { index: number }) {
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.08, ease: 'easeOut' }}
-      className="relative overflow-hidden group cursor-default min-h-[400px] md:min-h-[520px] md:[grid-column:1] md:[grid-row:1/3]"
-      style={{ borderRadius: 16 }}
+      className="relative overflow-hidden group cursor-default md:[grid-column:1] md:[grid-row:1/3]"
+      style={{ borderRadius: 16, minHeight: 520 }}
     >
       <div
         className="absolute inset-0 bg-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -114,8 +138,8 @@ function SquareCard({
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.08, ease: 'easeOut' }}
-      className={`relative overflow-hidden group cursor-default min-h-[280px] md:min-h-[254px] ${colClass} ${rowClass}`}
-      style={{ borderRadius: 16, background: '#111118' }}
+      className={`relative overflow-hidden group cursor-default ${colClass} ${rowClass}`}
+      style={{ borderRadius: 16, minHeight: 254, background: '#111118' }}
     >
       <div
         className="absolute inset-0 bg-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -149,8 +173,8 @@ function WideCard({ index }: { index: number }) {
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.08, ease: 'easeOut' }}
-      className="relative overflow-hidden group cursor-default min-h-[300px] md:min-h-[254px] md:[grid-column:2/4] md:[grid-row:2]"
-      style={{ borderRadius: 16 }}
+      className="relative overflow-hidden group cursor-default md:[grid-column:2/4] md:[grid-row:2]"
+      style={{ borderRadius: 16, minHeight: 254 }}
     >
       <div
         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
@@ -179,9 +203,59 @@ export function Portafolio() {
           className="mb-14"
         />
 
-        <div
-          className="grid grid-cols-1 gap-3 md:[grid-template-columns:repeat(3,1fr)] md:[grid-template-rows:repeat(2,auto)]"
-        >
+        {/* ── MOBILE: horizontal carousel ──────────────────────────── */}
+        <div className="md:hidden -mx-4">
+          <div
+            className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2"
+            style={{ paddingInline: 20 }}
+            role="list"
+            aria-label="Proyectos del portafolio"
+          >
+            {CAROUSEL_CARDS.map((card, i) => (
+              <div
+                key={card.client}
+                role="listitem"
+                className="relative overflow-hidden group cursor-default shrink-0 snap-start"
+                style={{
+                  width: '75vw',
+                  height: 420,
+                  borderRadius: 16,
+                }}
+              >
+                <div
+                  className="absolute inset-0 bg-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  style={{
+                    backgroundImage: `url('${card.image}')`,
+                    backgroundPosition: card.bgPos,
+                  }}
+                  aria-hidden="true"
+                />
+                {/* Permanent bottom gradient so client info is legible */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)',
+                  }}
+                  aria-hidden="true"
+                />
+                {/* Always-visible label at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-1.5 px-4 pb-4">
+                  <IndustryBadge label={card.industry} />
+                  <h3
+                    className="font-display font-bold text-white leading-tight"
+                    style={{ fontSize: '1.25rem' }}
+                  >
+                    {card.client}
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── DESKTOP: masonry grid ─────────────────────────────────── */}
+        <div className="hidden md:grid md:[grid-template-columns:repeat(3,1fr)] md:[grid-template-rows:repeat(2,auto)] gap-3">
           {/* Col 1, rows 1–2: tall */}
           <TallCard index={0} />
 
