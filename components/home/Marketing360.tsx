@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import type { ReactElement } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Layout, Search, BarChart2, Box, Users, Target, Check, type LucideIcon } from 'lucide-react'
@@ -680,6 +680,14 @@ export function Marketing360() {
   const [activeIdx, setActiveIdx] = useState(0)
   const active       = SERVICES[activeIdx]
   const Illustration = ILLUSTRATIONS[active.id]
+  const panelRef     = useRef<HTMLDivElement>(null)
+
+  function handleSelect(i: number) {
+    setActiveIdx(i)
+    if (window.innerWidth < 768 && panelRef.current) {
+      panelRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
 
   return (
     <section
@@ -707,7 +715,7 @@ export function Marketing360() {
                 <button
                   key={s.id}
                   role="listitem"
-                  onClick={() => setActiveIdx(i)}
+                  onClick={() => handleSelect(i)}
                   aria-pressed={isActive}
                   aria-label={`Ver servicio: ${s.title}`}
                   className={cn(
@@ -755,6 +763,7 @@ export function Marketing360() {
 
           {/* ── Right: detail panel ────────────────────────────────────────── */}
           <div
+            ref={panelRef}
             className="rounded-2xl overflow-hidden flex flex-col"
             style={{
               background: C.bg2,
