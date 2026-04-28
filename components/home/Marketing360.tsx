@@ -374,12 +374,6 @@ function IlloAnalytics(): ReactElement {
       <motion.circle cx="388" cy="104" r="5" fill={C.purpleL}
         animate={{ r: [5, 7, 5] }} transition={{ duration: 1.6, repeat: Infinity }} />
 
-      {/* bottom: top pages table */}
-      {['/inicio — 42%', '/servicios — 28%', '/contacto — 18%'].map((row, i) => (
-        <g key={row}>
-          <rect x="18" y={202 + i * 0} width="0" height="0" />
-        </g>
-      ))}
       <rect x="18" y="202" width="394" height="28" rx="6" fill={C.bg1} />
       {['/inicio', '/servicios', '/contacto'].map((p, i) => (
         <g key={p}>
@@ -418,7 +412,6 @@ function IlloMetaPixel(): ReactElement {
             style={{ transformOrigin: `${n.x}px 76px` }}
             transition={{ delay: i * 0.18, duration: 0.4, ease: 'easeOut' }}
           />
-          {/* icon placeholder */}
           <motion.circle cx={n.x} cy="76" r="16"
             fill={C.purpleDm}
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
@@ -429,7 +422,6 @@ function IlloMetaPixel(): ReactElement {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             transition={{ delay: i * 0.18 + 0.2 }}
           />
-          {/* pulse ring on Pixel node */}
           {i === 2 && (
             <motion.rect
               x={n.x - 34} y="42" width="68" height="68" rx="12"
@@ -513,9 +505,7 @@ function IlloCRM(): ReactElement {
         const isActive = col === active
         return (
           <g key={stage}>
-            {/* column bg */}
             <rect x={x} y="34" width="88" height="164" rx="8" fill={C.bg1} opacity={0.6} />
-            {/* column header */}
             <rect x={x + 4} y="38" width="80" height="20" rx="5"
               fill={isActive ? C.purpleDm : C.bg3}
               stroke={isActive ? C.purple : 'none'} strokeWidth="1" />
@@ -524,7 +514,6 @@ function IlloCRM(): ReactElement {
             <rect x={x + 58} y="43" width="18" height="8" rx="4"
               fill={isActive ? C.purple : C.bg4} />
 
-            {/* lead cards */}
             {Array.from({ length: counts[col] }).map((_, row) => (
               <motion.g key={row}
                 initial={{ opacity: 0, y: 10 }}
@@ -535,7 +524,7 @@ function IlloCRM(): ReactElement {
                   stroke={isActive ? C.purple : C.bg4} strokeWidth="1" />
                 <circle cx={x + 16} cy={82 + row * 52} r="8"
                   fill={isActive ? C.purpleDd : C.bg4} />
-                <rect cx={x + 16} cy={82 + row * 52}
+                <rect
                   x={x + 28} y={76 + row * 52} width="46" height="6" rx="3"
                   fill={isActive ? C.text : C.bg5} opacity={0.8} />
                 <rect x={x + 28} y={86 + row * 52} width="34" height="4" rx="2"
@@ -576,11 +565,10 @@ function IlloPauta(): ReactElement {
     <svg viewBox="0 0 420 240" aria-hidden="true" className="w-full h-full">
       <rect x="8" y="8" width="404" height="224" rx="12" fill={C.bg2} />
 
-      {/* gauge area */}
-      {/* track */}
+      {/* gauge track */}
       <path d="M 80 168 A 90 90 0 0 1 250 168" fill="none"
         stroke={C.bg3} strokeWidth="18" strokeLinecap="round" />
-      {/* fill — animated */}
+      {/* gauge fill — animated */}
       <motion.path d="M 80 168 A 90 90 0 0 1 250 168" fill="none"
         stroke={C.purple} strokeWidth="18" strokeLinecap="round"
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
@@ -625,7 +613,6 @@ function IlloPauta(): ReactElement {
             style={{ transformOrigin: `292px ${50 + i * 32}px` }}
             transition={{ delay: i * 0.18 + 0.7, type: 'spring', stiffness: 280, damping: 22 }}
           />
-          {/* check mark */}
           <motion.polyline
             points={`287,${49 + i * 32} 290,${53 + i * 32} 297,${46 + i * 32}`}
             fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round"
@@ -675,12 +662,92 @@ const ILLUSTRATIONS: Record<ServiceId, () => ReactElement> = {
   'pauta':      IlloPauta,
 }
 
+// ─── Shared panel content ─────────────────────────────────────────────────────
+function PanelContent({ active }: { active: typeof SERVICES[number] }) {
+  const Illustration = ILLUSTRATIONS[active.id]
+  return (
+    <motion.div
+      key={active.id}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.26, ease: 'easeOut' }}
+      className="flex flex-col flex-1"
+    >
+      {/* Illustration */}
+      <div
+        className="flex items-center justify-center px-5 pt-5 pb-3"
+        style={{ minHeight: 200 }}
+        aria-hidden="true"
+      >
+        <Illustration />
+      </div>
+
+      {/* Divider */}
+      <div className="mx-5" style={{ borderTop: '1px solid rgba(91,63,232,0.15)' }} />
+
+      {/* Text content */}
+      <div className="flex flex-col gap-4 px-5 py-5 flex-1">
+        {/* Service label + title */}
+        <div className="flex flex-col gap-1">
+          <span
+            className="font-body text-[10px] font-semibold uppercase tracking-widest"
+            style={{ color: '#7B5FFF' }}
+          >
+            {active.service}
+          </span>
+          <h3
+            className="font-display font-bold text-lg leading-tight"
+            style={{ color: C.text }}
+          >
+            {active.title}
+          </h3>
+        </div>
+
+        {/* Analogy */}
+        <blockquote
+          className="pl-3"
+          style={{ borderLeft: '2px solid rgba(91,63,232,0.55)' }}
+          aria-label="Analogía"
+        >
+          <p
+            className="font-body text-sm italic leading-relaxed"
+            style={{ color: 'rgba(240,238,255,0.6)' }}
+          >
+            &ldquo;{active.analogy}&rdquo;
+          </p>
+        </blockquote>
+
+        {/* Bullets */}
+        <ul className="flex flex-col gap-2.5" aria-label="Beneficios">
+          {active.bullets.map((bullet) => (
+            <li key={bullet} className="flex items-start gap-2.5">
+              <Check
+                size={14}
+                strokeWidth={2.2}
+                className="shrink-0 mt-0.5"
+                style={{ color: '#7B5FFF' }}
+                aria-hidden="true"
+              />
+              <span
+                className="font-body text-sm leading-snug"
+                style={{ color: 'rgba(240,238,255,0.75)' }}
+              >
+                {bullet}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </motion.div>
+  )
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 export function Marketing360() {
   const [activeIdx, setActiveIdx] = useState(0)
-  const active       = SERVICES[activeIdx]
-  const Illustration = ILLUSTRATIONS[active.id]
-  const panelRef     = useRef<HTMLDivElement>(null)
+  const active   = SERVICES[activeIdx]
+  const panelRef = useRef<HTMLDivElement>(null)
 
   function handleSelect(i: number) {
     setActiveIdx(i)
@@ -704,9 +771,61 @@ export function Marketing360() {
           className="mb-12"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-4 lg:gap-6">
+        {/* ── MOBILE: tab bar + panel ──────────────────────────────────── */}
+        <div className="md:hidden flex flex-col gap-3">
 
-          {/* ── Left: service list ─────────────────────────────────────────── */}
+          {/* Tab bar */}
+          <div
+            className="flex flex-row gap-2 overflow-x-auto scrollbar-hide pb-1"
+            role="tablist"
+            aria-label="Servicios"
+          >
+            {SERVICES.map((s, i) => {
+              const Icon = s.icon as LucideIcon
+              const isActive = i === activeIdx
+              return (
+                <button
+                  key={s.id}
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => handleSelect(i)}
+                  className={cn(
+                    'flex items-center gap-1.5 px-3 py-1.5 rounded-full shrink-0 transition-all duration-200 cursor-pointer',
+                  )}
+                  style={{
+                    background: isActive ? '#111118' : 'transparent',
+                    border: `1px solid ${isActive ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.1)'}`,
+                    color: isActive ? '#F0EEFF' : '#8A88A8',
+                  }}
+                >
+                  <Icon size={13} strokeWidth={1.8} aria-hidden="true" />
+                  <span className="font-body text-xs font-medium whitespace-nowrap">
+                    {s.service}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Panel */}
+          <div
+            ref={panelRef}
+            className="rounded-2xl overflow-hidden flex flex-col"
+            style={{
+              background: C.bg2,
+              border: '1px solid rgba(91,63,232,0.2)',
+            }}
+          >
+            <AnimatePresence mode="wait">
+              <PanelContent key={active.id} active={active} />
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* ── DESKTOP: sidebar list + panel ────────────────────────────── */}
+        <div className="hidden md:grid md:grid-cols-[340px_1fr] gap-6">
+
+          {/* Left: service list */}
           <div className="flex flex-col gap-2" role="list" aria-label="Lista de servicios">
             {SERVICES.map((s, i) => {
               const Icon = s.icon as LucideIcon
@@ -715,12 +834,10 @@ export function Marketing360() {
                 <button
                   key={s.id}
                   role="listitem"
-                  onClick={() => handleSelect(i)}
+                  onClick={() => setActiveIdx(i)}
                   aria-pressed={isActive}
                   aria-label={`Ver servicio: ${s.title}`}
-                  className={cn(
-                    'flex items-start gap-4 text-left px-4 py-3.5 rounded-2xl transition-all duration-200 cursor-pointer w-full',
-                  )}
+                  className="flex items-start gap-4 text-left px-4 py-3.5 rounded-2xl transition-all duration-200 cursor-pointer w-full"
                   style={{
                     background: isActive
                       ? 'rgba(91,63,232,0.2)'
@@ -743,16 +860,22 @@ export function Marketing360() {
 
                   {/* text */}
                   <div className="flex flex-col gap-0.5 min-w-0">
-                    <span className="font-body text-[10px] font-semibold uppercase tracking-widest"
-                      style={{ color: isActive ? 'rgba(184,176,255,0.7)' : 'rgba(123,95,255,0.65)' }}>
+                    <span
+                      className="font-body text-[10px] font-semibold uppercase tracking-widest"
+                      style={{ color: isActive ? 'rgba(184,176,255,0.7)' : 'rgba(123,95,255,0.65)' }}
+                    >
                       {s.service}
                     </span>
-                    <span className="font-display font-bold text-sm leading-tight"
-                      style={{ color: '#F0EEFF' }}>
+                    <span
+                      className="font-display font-bold text-sm leading-tight"
+                      style={{ color: '#F0EEFF' }}
+                    >
                       {s.title}
                     </span>
-                    <span className="font-body text-xs leading-snug mt-0.5"
-                      style={{ color: isActive ? 'rgba(240,238,255,0.55)' : 'rgba(138,136,168,0.75)' }}>
+                    <span
+                      className="font-body text-xs leading-snug mt-0.5"
+                      style={{ color: isActive ? 'rgba(240,238,255,0.55)' : 'rgba(138,136,168,0.75)' }}
+                    >
                       {s.shortDesc}
                     </span>
                   </div>
@@ -761,9 +884,8 @@ export function Marketing360() {
             })}
           </div>
 
-          {/* ── Right: detail panel ────────────────────────────────────────── */}
+          {/* Right: detail panel */}
           <div
-            ref={panelRef}
             className="rounded-2xl overflow-hidden flex flex-col"
             style={{
               background: C.bg2,
@@ -773,77 +895,11 @@ export function Marketing360() {
             }}
           >
             <AnimatePresence mode="wait">
-              <motion.div
-                key={active.id}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.28, ease: 'easeOut' }}
-                className="flex flex-col flex-1"
-              >
-                {/* illustration */}
-                <div
-                  className="flex items-center justify-center px-6 pt-6 pb-3"
-                  style={{ minHeight: 240 }}
-                  aria-hidden="true"
-                >
-                  <Illustration />
-                </div>
-
-                {/* divider */}
-                <div className="mx-6" style={{ borderTop: '1px solid rgba(91,63,232,0.15)' }} />
-
-                {/* content */}
-                <div className="flex flex-col gap-5 px-6 py-6 flex-1">
-                  {/* service badge */}
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-lg"
-                      style={{ background: 'rgba(91,63,232,0.18)' }}>
-                      <active.icon size={15} strokeWidth={1.8}
-                        style={{ color: '#7B5FFF' }} aria-hidden="true" />
-                    </div>
-                    <span className="font-body text-[10px] font-semibold uppercase tracking-widest"
-                      style={{ color: '#7B5FFF' }}>
-                      {active.service}
-                    </span>
-                  </div>
-
-                  {/* analogy quote */}
-                  <blockquote
-                    className="pl-4"
-                    style={{ borderLeft: '2px solid rgba(91,63,232,0.55)' }}
-                    aria-label="Analogía"
-                  >
-                    <p className="font-body text-sm italic leading-relaxed"
-                      style={{ color: 'rgba(240,238,255,0.6)' }}>
-                      &ldquo;{active.analogy}&rdquo;
-                    </p>
-                  </blockquote>
-
-                  {/* bullets */}
-                  <ul className="flex flex-col gap-3" aria-label="Beneficios">
-                    {active.bullets.map((bullet) => (
-                      <li key={bullet} className="flex items-start gap-3">
-                        <Check
-                          size={15}
-                          strokeWidth={2.2}
-                          className="shrink-0 mt-0.5"
-                          style={{ color: '#7B5FFF' }}
-                          aria-hidden="true"
-                        />
-                        <span className="font-body text-sm leading-snug"
-                          style={{ color: 'rgba(240,238,255,0.75)' }}>
-                          {bullet}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
+              <PanelContent key={active.id} active={active} />
             </AnimatePresence>
           </div>
-
         </div>
+
       </div>
     </section>
   )
