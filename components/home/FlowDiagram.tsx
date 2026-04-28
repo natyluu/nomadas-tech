@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Globe, Search, BarChart2, Box, Users, Target, DollarSign,
   type LucideIcon,
@@ -112,29 +112,40 @@ export function FlowDiagram() {
           })}
         </div>
 
-        {/* Mobile flow — vertical */}
-        <div className="md:hidden flex flex-col gap-0" role="list" aria-label="Pasos del flujo">
-          {FLOW_NODES.map((node, i) => {
-            const Icon = ICON_MAP[node.icon]
-            const isActive = i === active
-            const isDone = completed.includes(i)
-            const isPending = !isActive && !isDone
+        {/* Mobile flow — horizontal scroll */}
+        <div className="md:hidden">
+          <div
+            className="flex flex-row gap-3 overflow-x-auto scrollbar-hide pb-2"
+            style={{ WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
+            role="list"
+            aria-label="Pasos del flujo"
+          >
+            {FLOW_NODES.map((node, i) => {
+              const Icon = ICON_MAP[node.icon]
+              const isActive = i === active
+              const isDone = completed.includes(i)
+              const isPending = !isActive && !isDone
 
-            return (
-              <div key={node.label} className="flex items-stretch gap-4" role="listitem">
-                {/* Timeline column */}
-                <div className="flex flex-col items-center">
+              return (
+                <div
+                  key={node.label}
+                  role="listitem"
+                  className="flex flex-col items-center gap-1.5 shrink-0"
+                  style={{ width: 72 }}
+                >
                   <div
                     className={cn(
-                      'flex items-center justify-center w-12 h-12 rounded-xl border-2 transition-all duration-500 shrink-0',
+                      'flex items-center justify-center rounded-xl border-2 transition-all duration-500',
                       isActive  && 'bg-purple border-purple-light glow-purple-sm',
                       isDone    && 'bg-purple/20 border-purple/50',
                       isPending && 'bg-card border-purple/20',
                     )}
+                    style={{ width: 32, height: 32 }}
+                    aria-label={`${node.label}${isActive ? ' — activo' : isDone ? ' — completado' : ''}`}
                   >
                     {Icon && (
                       <Icon
-                        size={20}
+                        size={14}
                         strokeWidth={1.8}
                         aria-hidden="true"
                         className={cn(
@@ -146,33 +157,21 @@ export function FlowDiagram() {
                       />
                     )}
                   </div>
-                  {i < FLOW_NODES.length - 1 && (
-                    <div className="w-0.5 flex-1 mt-1 mb-1 bg-purple/10 relative overflow-hidden">
-                      <div
-                        className={cn(
-                          'absolute top-0 left-0 right-0 bg-purple transition-all duration-700',
-                          isDone ? 'h-full' : 'h-0',
-                        )}
-                      />
-                    </div>
-                  )}
-                </div>
-                {/* Label */}
-                <div className="flex items-center pb-6">
                   <span
                     className={cn(
-                      'font-body text-sm font-medium transition-colors duration-500',
+                      'font-body font-medium text-center leading-tight transition-colors duration-500',
                       isActive  && 'text-purple-light',
                       isDone    && 'text-content',
                       isPending && 'text-muted/50',
                     )}
+                    style={{ fontSize: 10 }}
                   >
                     {node.label}
                   </span>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })}
+          </div>
         </div>
 
         {/* Active step description */}

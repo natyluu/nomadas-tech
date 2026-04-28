@@ -5,21 +5,20 @@ import { motion, useInView } from 'framer-motion'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 
 /*
-  Grid layout (3 cols):
+  Desktop grid (3 cols × 2 rows):
 
   ┌─────────┬─────────┬─────────┐
-  │         │  [2]    │         │  row 1
-  │  [1]    │ square  │         │
-  │  tall   ├─────────┤         │
-  │ 1c×2r   │  [3]    │  (gap)  │  row 2
-  │         │  wide ──┤         │
-  └─────────┴─────────┴─────────┘
+  │         │  [2]    │  [4]    │  row 1
+  │  [1]    │ square  │ square  │
+  │  tall   ├─────────┴─────────┤
+  │ 1c×2r   │  [3]    wide      │  row 2
+  └─────────┴───────────────────┘
 
-  Actual placement:
-  [1] col 1 / row 1–2   (tall: 1 col, 2 rows)
-  [2] col 2 / row 1     (square: 1 col, 1 row)
-  [3] col 2–3 / row 2   (wide: 2 cols, 1 row)
-  [4] col 3 / row 1     (square: 1 col, 1 row)
+  Mobile: single column, stacked:
+  [1] tall   → 400px
+  [2] square → 280px
+  [4] square → 280px
+  [3] wide   → 300px
 */
 
 /* ─── Shared badge ───────────────────────────────────────────────── */
@@ -45,13 +44,11 @@ function IndustryBadge({ label }: { label: string }) {
 function HoverOverlay({ client, industry }: { client: string; industry: string }) {
   return (
     <>
-      {/* Dark overlay */}
       <div
         className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{ background: 'rgba(0,0,0,0.5)' }}
         aria-hidden="true"
       />
-      {/* Centered text */}
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 opacity-0 transition-all duration-500 group-hover:opacity-100 pointer-events-none px-6">
         <IndustryBadge label={industry} />
         <h3
@@ -65,7 +62,7 @@ function HoverOverlay({ client, industry }: { client: string; industry: string }
   )
 }
 
-/* ─── Card 1: tall — screenshot móvil, 1 col × 2 rows ───────────── */
+/* ─── Card 1: tall — 1 col × 2 rows on desktop ───────────────────── */
 function TallCard({ index }: { index: number }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
@@ -76,13 +73,8 @@ function TallCard({ index }: { index: number }) {
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.08, ease: 'easeOut' }}
-      className="relative overflow-hidden group cursor-default"
-      style={{
-        gridColumn: '1',
-        gridRow: '1 / 3',
-        borderRadius: 16,
-        minHeight: 520,
-      }}
+      className="relative overflow-hidden group cursor-default min-h-[400px] md:min-h-[520px] md:[grid-column:1] md:[grid-row:1/3]"
+      style={{ borderRadius: 16 }}
     >
       <div
         className="absolute inset-0 bg-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -97,20 +89,20 @@ function TallCard({ index }: { index: number }) {
   )
 }
 
-/* ─── Card 2 & 4: square — fondo oscuro, imagen en hover ─────────── */
+/* ─── Card 2 & 4: square ─────────────────────────────────────────── */
 function SquareCard({
   client,
   industry,
   image,
-  gridColumn,
-  gridRow,
+  colClass,
+  rowClass,
   index,
 }: {
   client: string
   industry: string
   image: string
-  gridColumn: string
-  gridRow: string
+  colClass: string
+  rowClass: string
   index: number
 }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -122,16 +114,9 @@ function SquareCard({
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.08, ease: 'easeOut' }}
-      className="relative overflow-hidden group cursor-default"
-      style={{
-        gridColumn,
-        gridRow,
-        borderRadius: 16,
-        minHeight: 254,
-        background: '#111118',
-      }}
+      className={`relative overflow-hidden group cursor-default min-h-[280px] md:min-h-[254px] ${colClass} ${rowClass}`}
+      style={{ borderRadius: 16, background: '#111118' }}
     >
-      {/* Image always visible */}
       <div
         className="absolute inset-0 bg-cover transition-transform duration-700 ease-out group-hover:scale-105"
         style={{
@@ -140,7 +125,6 @@ function SquareCard({
         }}
         aria-hidden="true"
       />
-      {/* Bottom gradient — hidden on hover */}
       <div
         className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-0"
         style={{
@@ -149,13 +133,12 @@ function SquareCard({
         }}
         aria-hidden="true"
       />
-      {/* Hover overlay + centered text */}
       <HoverOverlay client={client} industry={industry} />
     </motion.div>
   )
 }
 
-/* ─── Card 3: wide — screenshot desktop, 2 cols × 1 row ─────────── */
+/* ─── Card 3: wide — 2 cols × 1 row on desktop ───────────────────── */
 function WideCard({ index }: { index: number }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
@@ -166,13 +149,8 @@ function WideCard({ index }: { index: number }) {
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.08, ease: 'easeOut' }}
-      className="relative overflow-hidden group cursor-default"
-      style={{
-        gridColumn: '2 / 4',
-        gridRow: '2',
-        borderRadius: 16,
-        minHeight: 254,
-      }}
+      className="relative overflow-hidden group cursor-default min-h-[300px] md:min-h-[254px] md:[grid-column:2/4] md:[grid-row:2]"
+      style={{ borderRadius: 16 }}
     >
       <div
         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
@@ -202,12 +180,7 @@ export function Portafolio() {
         />
 
         <div
-          className="grid"
-          style={{
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gridTemplateRows: 'repeat(2, auto)',
-            gap: 12,
-          }}
+          className="grid grid-cols-1 gap-3 md:[grid-template-columns:repeat(3,1fr)] md:[grid-template-rows:repeat(2,auto)]"
         >
           {/* Col 1, rows 1–2: tall */}
           <TallCard index={0} />
@@ -217,8 +190,8 @@ export function Portafolio() {
             client="Pastelería"
             industry="Gastronomía"
             image="/portafolios/cliente2.jpg"
-            gridColumn="2"
-            gridRow="1"
+            colClass="md:[grid-column:2]"
+            rowClass="md:[grid-row:1]"
             index={1}
           />
 
@@ -227,8 +200,8 @@ export function Portafolio() {
             client="Keydi de la Rosa"
             industry="E-commerce"
             image="/portafolios/cliente1.jpg"
-            gridColumn="3"
-            gridRow="1"
+            colClass="md:[grid-column:3]"
+            rowClass="md:[grid-row:1]"
             index={3}
           />
 
