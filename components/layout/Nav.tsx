@@ -58,7 +58,7 @@ export function Nav() {
           {/* CTA */}
           <div className="hidden md:block">
             <Button size="sm" asChild>
-              <Link href="/#cotizador">Cotizar proyecto &rarr;</Link>
+              <Link href="/#cotizacion">Cotizar proyecto &rarr;</Link>
             </Button>
           </div>
 
@@ -99,7 +99,7 @@ export function Nav() {
           ))}
           <div className="pt-4">
             <Button size="sm" className="w-full" onClick={() => setOpen(false)} asChild>
-              <Link href="/#cotizador">Cotizar proyecto &rarr;</Link>
+              <Link href="/#cotizacion">Cotizar proyecto &rarr;</Link>
             </Button>
           </div>
         </nav>

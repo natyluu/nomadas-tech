@@ -335,7 +335,7 @@ export function HeroBanner() {
           style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}
         >
           <Link
-            href="/#cotizador"
+            href="/#cotizacion"
             style={{
               background: '#5B3FE8', color: '#fff',
               padding: '0.75rem 1.8rem', borderRadius: 9,

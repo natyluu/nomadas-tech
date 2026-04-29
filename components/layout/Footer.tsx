@@ -119,7 +119,7 @@ export function Footer() {
               </li>
               <li className="pt-2">
                 <Link
-                  href="/#cotizador"
+                  href="/#cotizacion"
                   className="inline-flex items-center gap-1.5 font-body text-sm font-medium text-purple-light hover:text-purple transition-colors duration-200"
                 >
                   Cotizar proyecto &rarr;

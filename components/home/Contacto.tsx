@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import { MessageCircle, Calculator, Video } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import Link from 'next/link'
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '57XXXXXXXXXX'
 const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL ?? 'https://calendly.com/nomadas-tech/30min'
@@ -25,7 +24,7 @@ const CHANNELS = [
     title: 'Cotizador online',
     description: 'Responde 4 preguntas y recibe una propuesta personalizada en menos de 24 horas.',
     cta: 'Iniciar cotización',
-    href: '#cotizador',
+    href: '#cotizacion',
     external: false,
     accent: '#5B3FE8',
     accentDim: 'rgba(91,63,232,0.12)',
@@ -111,9 +110,9 @@ export function Contacto() {
                   </Button>
                 ) : (
                   <Button size="sm" className="w-full" asChild>
-                    <Link href={channel.href} aria-label={channel.cta}>
+                    <a href={channel.href} aria-label={channel.cta}>
                       {channel.cta}
-                    </Link>
+                    </a>
                   </Button>
                 )}
               </motion.div>
