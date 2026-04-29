@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useMemo, useState, memo } from 'react'
-import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 // ─── Word data with exact SVG paths from the original design ──────────────────
@@ -334,30 +333,32 @@ export function HeroBanner() {
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.32 }}
           style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}
         >
-          <Link
-            href="/#cotizacion"
+          <button
+            type="button"
+            onClick={() => document.getElementById('cotizacion')?.scrollIntoView({ behavior: 'smooth' })}
             style={{
               background: '#5B3FE8', color: '#fff',
               padding: '0.75rem 1.8rem', borderRadius: 9,
               fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif',
               fontWeight: 700, fontSize: '0.9rem',
-              textDecoration: 'none', display: 'inline-block',
+              border: 'none', cursor: 'pointer', display: 'inline-block',
               transition: 'background 0.2s',
             }}
             onMouseEnter={e => (e.currentTarget.style.background = '#7B5FFF')}
             onMouseLeave={e => (e.currentTarget.style.background = '#5B3FE8')}
           >
             Quiero mi cotización →
-          </Link>
-          <Link
-            href="/#proceso"
+          </button>
+          <button
+            type="button"
+            onClick={() => document.getElementById('proceso')?.scrollIntoView({ behavior: 'smooth' })}
             style={{
               background: 'transparent', color: '#8A88A8',
               border: '1px solid rgba(255,255,255,0.1)',
               padding: '0.75rem 1.8rem', borderRadius: 9,
               fontFamily: 'var(--font-dm-sans), DM Sans, sans-serif',
               fontWeight: 600, fontSize: '0.9rem',
-              textDecoration: 'none', display: 'inline-block',
+              cursor: 'pointer', display: 'inline-block',
               transition: 'all 0.2s',
             }}
             onMouseEnter={e => {
@@ -370,7 +371,7 @@ export function HeroBanner() {
             }}
           >
             Ver cómo trabajamos
-          </Link>
+          </button>
         </motion.div>
       </div>
     </section>
