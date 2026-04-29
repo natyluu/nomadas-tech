@@ -14,30 +14,27 @@ const CHANNELS = [
     title: 'WhatsApp directo',
     description: 'Respuesta en menos de 1 hora. Cuéntanos tu proyecto y te orientamos sin compromiso.',
     cta: 'Escribir ahora',
-    href: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola! Me interesa conocer más sobre sus servicios.')}`,
-    external: true,
     accent: '#25D366',
     accentDim: 'rgba(37,211,102,0.12)',
+    onClick: () => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola! Me interesa conocer más sobre sus servicios.')}`, '_blank'),
   },
   {
     icon: Calculator,
     title: 'Cotizador online',
     description: 'Responde 4 preguntas y recibe una propuesta personalizada en menos de 24 horas.',
     cta: 'Iniciar cotización',
-    href: '#cotizacion',
-    external: false,
     accent: '#5B3FE8',
     accentDim: 'rgba(91,63,232,0.12)',
+    onClick: () => document.getElementById('cotizacion')?.scrollIntoView({ behavior: 'smooth' }),
   },
   {
     icon: Video,
     title: 'Llamada 30 min gratis',
     description: 'Agenda una videollamada con nuestro equipo. Sin compromisos, solo ideas.',
     cta: 'Agendar llamada',
-    href: CALENDLY_URL,
-    external: true,
     accent: '#7B5FFF',
     accentDim: 'rgba(123,95,255,0.12)',
+    onClick: () => window.open(CALENDLY_URL, '_blank'),
   },
 ]
 
@@ -92,29 +89,14 @@ export function Contacto() {
                 </div>
 
                 {/* CTA */}
-                {channel.external ? (
-                  <Button
-                    variant={channel.accent === '#5B3FE8' ? 'primary' : 'outline'}
-                    size="sm"
-                    className="w-full"
-                    asChild
-                  >
-                    <a
-                      href={channel.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${channel.cta} — ${channel.title}`}
-                    >
-                      {channel.cta}
-                    </a>
-                  </Button>
-                ) : (
-                  <Button size="sm" className="w-full" asChild>
-                    <a href={channel.href} aria-label={channel.cta}>
-                      {channel.cta}
-                    </a>
-                  </Button>
-                )}
+                <Button
+                  size="sm"
+                  className="w-full"
+                  onClick={channel.onClick}
+                  aria-label={channel.cta}
+                >
+                  {channel.cta}
+                </Button>
               </motion.div>
             )
           })}
